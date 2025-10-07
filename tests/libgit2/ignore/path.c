@@ -32,6 +32,13 @@ static void assert_is_ignored_(
 #define assert_is_ignored(expected, filepath) \
 	assert_is_ignored_(expected, filepath, __FILE__, __func__, __LINE__)
 
+void test_ignore_path__xxx(void)
+{
+	cl_git_rewritefile("attr/.gitignore", "foo**/bar");
+
+	assert_is_ignored(true, "foobar");
+}
+
 void test_ignore_path__honor_temporary_rules(void)
 {
 	cl_git_rewritefile("attr/.gitignore", "/NewFolder\n/NewFolder/NewFolder");

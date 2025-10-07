@@ -91,6 +91,16 @@ void test_ignore_status__1(void)
 	refute_is_ignored("sub/dir/");
 }
 
+void test_ignore_status__x(void)
+{
+	g_repo = cl_git_sandbox_init("attr");
+
+	cl_git_rewritefile("attr/.gitignore", "foo**/bar\n");
+	git_attr_cache_flush(g_repo);
+
+	assert_is_ignored("foobar");
+}
+
 void test_ignore_status__empty_repo_with_gitignore_rewrite(void)
 {
 	status_entry_single st;
